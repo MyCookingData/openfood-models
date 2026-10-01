@@ -152,7 +152,7 @@ class ProductModel {
       category: json['category'] ?? '',
       name: json['name'] ?? '',
       description: json['description'] ?? '',
-      image: json['image'] ?? '',
+      image: (json['image'] ?? json['imageUrl'] ?? json['photo'] ?? json['picture'] ?? '').toString(),
       priceHT: (json['priceHT'] as num?)?.toDouble() ?? 0.0,
       vatRate: (json['vatRate'] as num?)?.toDouble() ?? 2.1,
       badgeText: json['badgeText'] ?? '',
