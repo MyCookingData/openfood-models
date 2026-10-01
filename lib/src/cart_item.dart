@@ -7,6 +7,7 @@ class CartItem {
   final String category;
   final String restaurantId;
   final String? restaurantName;
+  final String? image;
   final double? restaurantLat;
   final double? restaurantLng;
   final List<Map<String, dynamic>>? selectedOptions;
@@ -20,6 +21,7 @@ class CartItem {
     required this.category,
     required this.restaurantId,
     this.restaurantName,
+    this.image,
     this.restaurantLat,
     this.restaurantLng,
     this.selectedOptions,
@@ -41,6 +43,7 @@ class CartItem {
       'category': category,
       'restaurantId': restaurantId,
       'restaurantName': restaurantName,
+      'image': image,
       'restaurantLat': restaurantLat,
       'restaurantLng': restaurantLng,
       'selectedOptions': selectedOptions,
@@ -62,6 +65,7 @@ class CartItem {
       category: json['category'] ?? '',
       restaurantId: json['restaurantId'] ?? '',
       restaurantName: json['restaurantName'],
+      image: json['image'] ?? json['imageUrl'],
       restaurantLat: json['restaurantLat']?.toDouble(),
       restaurantLng: json['restaurantLng']?.toDouble(),
       selectedOptions: json['selectedOptions'] != null 
