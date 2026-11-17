@@ -26,13 +26,26 @@ class DaySchedule {
 
   factory DaySchedule.fromJson(Map<String, dynamic>? json) {
     if (json == null) return const DaySchedule();
+    
+    bool parseBool(dynamic v, bool fallback) {
+      if (v == null) return fallback;
+      if (v is bool) return v;
+      if (v is num) return v != 0;
+      if (v is String) {
+        final s = v.trim().toLowerCase();
+        if (s == 'true' || s == '1') return true;
+        if (s == 'false' || s == '0') return false;
+      }
+      return fallback;
+    }
+
     return DaySchedule(
-      isOpen: json['isOpen'] as bool? ?? true,
-      open: json['open'] as String? ?? '11:30',
-      close: json['close'] as String? ?? '14:30',
-      hasSecondSlot: json['hasSecondSlot'] as bool? ?? false,
-      open2: json['open2'] as String? ?? '18:30',
-      close2: json['close2'] as String? ?? '22:30',
+      isOpen: parseBool(json['isOpen'], true),
+      open: json['open']?.toString() ?? '11:30',
+      close: json['close']?.toString() ?? '14:30',
+      hasSecondSlot: parseBool(json['hasSecondSlot'], false),
+      open2: json['open2']?.toString() ?? '18:30',
+      close2: json['close2']?.toString() ?? '22:30',
     );
   }
 
