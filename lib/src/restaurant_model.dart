@@ -14,6 +14,7 @@ class RestaurantModel {
   final double? freeDeliveryThreshold;
   final String? stripeAccountId;
   final Map<String, dynamic>? openingHours;
+  final double? startingPrice;
 
   RestaurantModel({
     required this.id,
@@ -31,6 +32,7 @@ class RestaurantModel {
     this.freeDeliveryThreshold,
     this.stripeAccountId,
     this.openingHours,
+    this.startingPrice,
   });
 
   Map<String, dynamic> toJson() => {
@@ -49,9 +51,19 @@ class RestaurantModel {
     'freeDeliveryThreshold': freeDeliveryThreshold,
     'stripeAccountId': stripeAccountId,
     'openingHours': openingHours,
+    'startingPrice': startingPrice,
   };
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) {
+    final rawStartingPrice = json['startingPrice'] ?? json['minProductPrice'] ?? json['minPrice'];
+    double? parsedStartingPrice;
+    if (rawStartingPrice is num) {
+      parsedStartingPrice = rawStartingPrice.toDouble();
+    } else if (rawStartingPrice is String) {
+      final cleaned = rawStartingPrice.replaceAll('€', '').replaceAll(' ', '').replaceAll(',', '.').trim();
+      parsedStartingPrice = double.tryParse(cleaned);
+    }
+
     return RestaurantModel(
       id: json['id'] ?? '',
       name: json['name'] ?? 'Restaurant Inconnu',
@@ -68,6 +80,7 @@ class RestaurantModel {
       freeDeliveryThreshold: (json['freeDeliveryThreshold'] as num?)?.toDouble(),
       stripeAccountId: json['stripeAccountId'],
       openingHours: json['openingHours'] != null ? Map<String, dynamic>.from(json['openingHours']) : null,
+      startingPrice: parsedStartingPrice,
     );
   }
 }
