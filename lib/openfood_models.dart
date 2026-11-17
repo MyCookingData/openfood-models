@@ -12,3 +12,4 @@ export 'src/promotion.dart';
 export 'src/carousel_model.dart';
 export 'src/restaurant_model.dart';
 export 'src/user_model.dart';
+export 'src/opening_hours.dart';

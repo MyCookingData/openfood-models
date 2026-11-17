@@ -13,6 +13,7 @@ class RestaurantModel {
   final String tiktok;
   final double? freeDeliveryThreshold;
   final String? stripeAccountId;
+  final Map<String, dynamic>? openingHours;
 
   RestaurantModel({
     required this.id,
@@ -29,6 +30,7 @@ class RestaurantModel {
     this.tiktok = '',
     this.freeDeliveryThreshold,
     this.stripeAccountId,
+    this.openingHours,
   });
 
   Map<String, dynamic> toJson() => {
@@ -46,6 +48,7 @@ class RestaurantModel {
     'tiktok': tiktok,
     'freeDeliveryThreshold': freeDeliveryThreshold,
     'stripeAccountId': stripeAccountId,
+    'openingHours': openingHours,
   };
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) {
@@ -64,6 +67,7 @@ class RestaurantModel {
       tiktok: json['tiktok'] ?? '',
       freeDeliveryThreshold: (json['freeDeliveryThreshold'] as num?)?.toDouble(),
       stripeAccountId: json['stripeAccountId'],
+      openingHours: json['openingHours'] != null ? Map<String, dynamic>.from(json['openingHours']) : null,
     );
   }
 }
